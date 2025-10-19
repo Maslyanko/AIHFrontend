@@ -1,6 +1,7 @@
 # AI-hunt SPA (Vite + React + TS)
 
 ## Скрипты
+
 - `npm run dev` — локальный запуск
 - `npm run test` / `npm run test:ci` — тесты (Vitest + Testing Library + MSW)
 - `npm run lint` — ESLint
@@ -9,6 +10,7 @@
 - `npm run build` — прод сборка
 
 ## Переменные окружения
+
 Смотри `.env.sample`. Важно: для Vite все переменные должны иметь префикс `VITE_`.
 
 - `VITE_OIDC_AUTHORITY` — URL провайдера OIDC
@@ -18,6 +20,7 @@
 - `VITE_BACKEND_API` — базовый URL API (например, `http://localhost:8080/api`)
 
 ## OAuth2/OIDC (Authorization Code + PKCE)
+
 - Кнопка **Login** делает `signinRedirect()` → редирект на провайдера
 - `/auth/callback` обрабатывает `code+state+nonce` через `signinRedirectCallback()`
 - Токены хранятся в `sessionStorage` (см. `userStore`)
@@ -26,6 +29,7 @@
 - **Logout** — `signoutRedirect()`
 
 ## Docker
+
 - Мультистейдж Dockerfile (build → nginx)
 - Nginx проксирует `/api` → `BACKEND_API` (envsubst в entrypoint)
 
