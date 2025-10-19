@@ -1,5 +1,5 @@
-import type { AuthProviderProps } from 'react-oidc-context';
 import { WebStorageStateStore } from 'oidc-client-ts';
+import type { AuthProviderProps } from 'react-oidc-context';
 
 export const oidcConfig: AuthProviderProps = {
   authority: import.meta.env.VITE_OIDC_AUTHORITY as string,

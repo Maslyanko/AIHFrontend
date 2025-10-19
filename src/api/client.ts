@@ -4,7 +4,7 @@ export class ForbiddenError extends Error {}
 
 export const useApi = () => {
   const auth = useAuth();
-  const base = (import.meta as any).env.VITE_BACKEND_API as string;
+  const base = (import.meta.env.VITE_BACKEND_API as string) ?? '/api';
 
   const apiFetch = async <T = unknown>(path: string, init?: RequestInit): Promise<T> => {
     const headers: HeadersInit = {
@@ -22,7 +22,6 @@ export const useApi = () => {
 
     const ct = res.headers.get('content-type');
     if (ct && ct.includes('application/json')) return (await res.json()) as T;
-    // @ts-expect-error allow text fallback
     return (await res.text()) as T;
   };
 

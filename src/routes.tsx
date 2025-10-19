@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from './App';
+
+import { ProtectedRoute } from '@/components/ProtectedRoute';
+import Callback from '@/pages/Callback';
+import Forbidden from '@/pages/Forbidden';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
-import Callback from '@/pages/Callback';
 import Protected from '@/pages/Protected';
-import Forbidden from '@/pages/Forbidden';
-import { ProtectedRoute } from '@/components/ProtectedRoute';
+
+import App from './App';
 
 export const router = createBrowserRouter([
   {

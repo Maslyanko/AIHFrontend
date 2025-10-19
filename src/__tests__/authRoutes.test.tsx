@@ -1,20 +1,23 @@
-import React from 'react';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
-import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { render, screen, waitFor } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-import { router as appRouter } from '@/routes';
+import { router as appRouter } from '../routes';
 
 const useAuthMock = vi.fn();
 vi.mock('react-oidc-context', () => ({
   __esModule: true,
   useAuth: () => useAuthMock(),
-  AuthProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  AuthProvider: ({ children }: { children: ReactNode }) => <>{children}</>,
 }));
 
 function renderWithProviders(path: string) {
-  const router = createMemoryRouter(appRouter.routes as any, { initialEntries: [path] });
+  const router = createMemoryRouter(
+    appRouter.routes as unknown as Parameters<typeof createMemoryRouter>[0],
+    { initialEntries: [path] },
+  );
   const qc = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
     <QueryClientProvider client={qc}>

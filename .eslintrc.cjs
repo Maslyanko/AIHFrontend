@@ -1,4 +1,3 @@
-/* eslint-env node */
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -12,9 +11,21 @@ module.exports = {
     'plugin:import/typescript',
     'prettier',
   ],
-  settings: { react: { version: 'detect' } },
+  settings: {
+    react: { version: 'detect' },
+    'import/resolver': {
+      typescript: {
+        project: './tsconfig.json',
+      },
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
   env: { browser: true, es2022: true, node: true },
   rules: {
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
     'import/order': [
       'warn',
       {
@@ -24,4 +35,10 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['vite.config.ts', 'vitest.config.ts'],
+      rules: { 'import/no-unresolved': 'off' },
+    },
+  ],
 };

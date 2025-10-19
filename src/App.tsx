@@ -1,5 +1,5 @@
-import { Link, Outlet } from 'react-router-dom';
 import { useAuth } from 'react-oidc-context';
+import { Link, Outlet } from 'react-router-dom';
 
 export default function App() {
   const auth = useAuth();

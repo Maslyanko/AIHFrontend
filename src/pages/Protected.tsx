@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from 'react-oidc-context';
-import { useApi, ForbiddenError } from '@/api/client';
 import { useLocation } from 'react-router-dom';
+
+import { useApi, ForbiddenError } from '@/api/client';
 
 export default function Protected() {
   const auth = useAuth();
