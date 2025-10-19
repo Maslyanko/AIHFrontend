@@ -1,23 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuth } from 'react-oidc-context';
 import { useNavigate } from 'react-router-dom';
 
 export default function Callback() {
   const auth = useAuth();
   const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
 
+  // После того как провайдер обработает callback и авторизует пользователя,
+  // делаем редирект туда, где хотели оказаться до логина.
   useEffect(() => {
-    auth
-      .signinRedirectCallback()
-      .then(() => {
-        const to = sessionStorage.getItem('post_login_redirect') || '/';
-        navigate(to, { replace: true });
-      })
-      .catch((e) => setError(String(e)));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!auth.isLoading && auth.isAuthenticated) {
+      const to = sessionStorage.getItem('post_login_redirect') || '/';
+      navigate(to, { replace: true });
+    }
+  }, [auth.isLoading, auth.isAuthenticated, navigate]);
 
-  if (error) return <div className="container">Ошибка входа: {error}</div>;
   return <div className="container">Завершаем вход…</div>;
 }
